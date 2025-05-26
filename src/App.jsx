@@ -14,7 +14,6 @@ function App() {
     selectedWorkFlowId: undefined,
     WorkFlow: []
   });
-
   const handleLogin = () => {
     setLoggedIn(true);
   };
@@ -191,13 +190,25 @@ function App() {
   }
 
   function handleStartWorkFlow() {
-    setProjectsState(prevState => ({ ...prevState, selectedWorkFlowId: null }));
+    setProjectsState((prevState) => {
+      return {
+        ...prevState,
+        selectedWorkFlowId: null,
+      }
+    })
   }
 
+  // function to let to user click off if they don't want to add a workFlow 
   function handleCancelWorkFlow() {
-    setProjectsState(prevState => ({ ...prevState, selectedWorkFlowId: undefined }));
+    setProjectsState((prevState) => {
+      return {
+        ...prevState,
+        selectedWorkFlowId: undefined,
+      };
+    })
   }
 
+  // to save the workFlow 
   function handleAddWorkFlow(dataPassed) {
     setProjectsState((prevState) => {
       const workFlowId = Math.random();

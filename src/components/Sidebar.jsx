@@ -10,7 +10,7 @@ export default function Sidebar({ startWorkFlow, workFlows, onSelectKanban }) {
       </div>
       <h2 className="text-2xl">Your WorkFlows</h2>
       <div>
-        <Button row={true} onClick={startWorkFlow}>
+        <Button onClick={startWorkFlow}>
           Add WorkFlow
           <img className="w-4 h-4" src="../src/assets/addIcon.png" alt="AddButton" />
         </Button>

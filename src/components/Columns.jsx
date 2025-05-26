@@ -15,7 +15,7 @@ export default function Columns({
   const [editColumn, setEditColumn] = useState(null); // {id, title, description}
   const [showTaskModal, setShowTaskModal] = useState(null); // columnId or null
   const [editTask, setEditTask] = useState(null); // {columnId, task}
-  
+
   // For editing column
   const [colTitle, setColTitle] = useState("");
   const [colDesc, setColDesc] = useState("");
@@ -48,6 +48,20 @@ export default function Columns({
     setShowTaskModal({ columnId, edit: false });
   }
 
+  // Handle task submit
+  function handleTaskSubmit(columnId, e) {
+    e.preventDefault();
+    if (editTask) {
+      onEditTask(columnId, editTask.task.id, taskTitle, taskDesc);
+    } else {
+      onAddTask(columnId, taskTitle, taskDesc, null);
+    }
+    setShowTaskModal(null);
+    setEditTask(null);
+    setTaskTitle("");
+    setTaskDesc("");
+  }
+
   return (
     <div className="mt-10">
       <ul className="flex flex-row gap-5">
@@ -56,7 +70,7 @@ export default function Columns({
             <div className="flex justify-between items-center mb-2">
               <h3 className="text-lg font-bold">{column.title}</h3>
               <button
-                className="text-lg px-2"
+                className="text-lg px-2 cursor-pointer duration-100 hover:font-medium"
                 onClick={() => setShowColumnModal(column.id)}
                 aria-label="Column options"
               >
@@ -75,7 +89,7 @@ export default function Columns({
               ))}
             </ul>
             <button
-              className="text-xs bg-blue-600 text-white px-2 py-1 rounded w-full"
+              className="text-xs bg-blue-600 text-white px-2 py-1 rounded w-full cursor-pointer duration-200 hover:bg-blue-700 hover:drop-shadow-sm"
               onClick={() => handleAddTaskModal(column.id)}
             >
               Add Task
@@ -87,8 +101,7 @@ export default function Columns({
                 <div>
                   <button
                     className="block w-full text-left py-2 hover:bg-gray-100"
-                    onClick={() => handleEditColumnOpen(column)}
-                  >
+                    onClick={() => handleEditColumnOpen(column)}>
                     Edit Column
                   </button>
                   <button
@@ -108,8 +121,7 @@ export default function Columns({
                     onEditColumn(column.id, colTitle, colDesc);
                     setShowColumnModal(null);
                     setEditColumn(null);
-                  }}
-                >
+                  }}>
                   <div>
                     <label className="block text-xs mb-1">Title</label>
                     <input
@@ -148,19 +160,19 @@ export default function Columns({
               onClose={() => {
                 setShowTaskModal(null);
                 setEditTask(null);
+                setTaskTitle("");
+                setTaskDesc("");
               }}
             >
-              <form
-                onSubmit={e => {
-                  e.preventDefault();
-                  if (editTask) {
-                    onEditTask(column.id, editTask.task.id, taskTitle, taskDesc);
-                  } else {
-                    onAddTask(column.id, taskTitle, taskDesc, null);
-                  }
-                  setShowTaskModal(null);
-                  setEditTask(null);
-                }}
+              <form onSubmit={e => { e.preventDefault();
+                if (editTask) {
+                  onEditTask(column.id, editTask.task.id, taskTitle, taskDesc);
+                } else {
+                  onAddTask(column.id, taskTitle, taskDesc, null);
+                }
+                setShowTaskModal(null);
+                setEditTask(null);
+              }}
               >
                 <div>
                   <label className="block text-xs mb-1">Task Title</label>
@@ -183,14 +195,11 @@ export default function Columns({
                 <button className="bg-blue-600 text-white px-3 py-1 rounded mr-2" type="submit">
                   Done
                 </button>
-                <button
-                  className="text-gray-500 px-3 py-1 rounded"
-                  type="button"
+                <button className="text-gray-500 px-3 py-1 rounded" type="button"
                   onClick={() => {
                     setShowTaskModal(null);
                     setEditTask(null);
-                  }}
-                >
+                  }}>
                   Cancel
                 </button>
               </form>
