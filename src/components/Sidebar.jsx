@@ -13,10 +13,10 @@ export default function Sidebar({
   settingsClicked,
   setSettingsClicked,
   selectedWorkFlowId,
-  theme,           
-  setTheme,        
-  onEditWorkflow,    
-  onDeleteWorkflow   
+  theme,
+  setTheme,
+  onEditWorkflow,
+  onDeleteWorkflow
 }) {
   const [aboutUsClicked, setAboutUsClicked] = useState(false);
   const [logoAnimate, setLogoAnimate] = useState(false);
@@ -30,7 +30,7 @@ export default function Sidebar({
 
   // Length of WorkFlow
   const lengthWorkflow = workFlows.length;
-  let tasksCount=0;
+  let tasksCount = 0;
 
   const handleLogout = () => {
     setAboutUsClicked(false);
@@ -59,7 +59,7 @@ export default function Sidebar({
       navigate('/settings');
     }
   };
-//To navigate on and off from the aboutUs Page
+  //To navigate on and off from the aboutUs Page
   const handleAboutUsClick = () => {
     if (aboutUsClicked) {
       setSettingsClicked(false);
@@ -104,13 +104,13 @@ export default function Sidebar({
 
   const getThemeColor = (theme) => {
     const colorMap = {
-      'bg-blue-900': 'blue',
-      'bg-green-900': 'green',
-      'bg-purple-900': 'purple',
-      'bg-red-900': 'red',
-      'bg-yellow-900': 'yellow',
-      'bg-indigo-900': 'indigo',
-      'bg-gray-900': 'gray'
+      'bg-gradient-to-r from-blue-800 to-blue-900': 'blue',
+      'bg-gradient-to-r from-green-800 to-green-900': 'green',
+      'bg-gradient-to-r from-purple-800 to-purple-900': 'purple',
+      'bg-gradient-to-r from-red-800 to-red-900': 'red',
+      'bg-gradient-to-r from-yellow-800 to-yellow-900': 'yellow',
+      'bg-gradient-to-r from-indigo-800 to-indigo-900': 'indigo',
+      'bg-gradient-to-r from-gray-800 to-gray-900': 'gray'
     };
     return colorMap[theme] || 'blue';
   };
@@ -226,11 +226,10 @@ export default function Sidebar({
                 tasksCount = work.columns?.reduce((total, col) => total + (col.tasks?.length || 0), 0) || 0;
                 return (
                   <li key={work.id} className="w-full mb-3">
-                    <div className={`w-full my-0.5 rounded-2xl flex items-center transition-colors h-18 duration-300 ${
-                      work.id === selectedWorkFlowId
+                    <div className={`w-full my-0.5 rounded-2xl flex items-center transition-colors h-18 duration-300 ${work.id === selectedWorkFlowId
                         ? `${theme.title} text-white`
                         : `workflow-hover ${getThemeColor(theme.title)}`
-                    }`}>
+                      }`}>
                       <button
                         onClick={() => {
                           setAboutUsClicked(false);
@@ -243,14 +242,14 @@ export default function Sidebar({
                         <span className="block">
                           {work.title}
                         </span>
-                         <div className="flex items-center gap-2 mt-1 text-xs opacity-75">
-                            <span>{work.columns?.length || 0} columns</span>
-                            <span>•</span>
-                            <span>{tasksCount} tasks</span>
-                          </div>
+                        <div className="flex items-center gap-2 mt-1 text-xs opacity-75">
+                          <span>{work.columns?.length || 0} columns</span>
+                          <span>•</span>
+                          <span>{tasksCount} tasks</span>
+                        </div>
                       </button>
                       <button
-                      // Only handle this click here—don't let it bubble up to any parent onClick handlers
+                        // Only handle this click here—don't let it bubble up to any parent onClick handlers
                         onClick={(e) => {
                           e.stopPropagation();
                           handleWorkflowOptions(work);
@@ -322,7 +321,7 @@ export default function Sidebar({
                 Workflow Name
               </label>
               <input
-              maxLength="20"
+                maxLength="20"
                 type="text"
                 value={newWorkflowTitle || ''} // Add default empty string
                 onChange={(e) => setNewWorkflowTitle(e.target.value)}

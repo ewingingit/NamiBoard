@@ -2,9 +2,9 @@
 const config = {
   db: {
     host: "localhost",
-    user: 'root',
-    password: 'Mffjog123**', // Add your MySQL password here
-    database: 'testbackend',
+    user: "root",
+    password: "ewingUPM@201", // Add your MySQL password here
+    database: "webdevdatabase",
     port: 3306
   }
 };

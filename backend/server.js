@@ -356,6 +356,28 @@ app.get('/api/tasks/:taskId/file', (req, res) => {
   );
 });
 
+app.put('/api/tasks/:id', (req, res) => {
+  const { id } = req.params;
+  const { title, description, priority, dueDate } = req.body;
+
+  console.log('UPDATE TASK:', { id, title, description, priority, dueDate });
+
+  pool.query(
+    'UPDATE tasks SET title = ?, description = ?, priority = ?, dueDate = ? WHERE id = ?',
+    [title, description, priority, dueDate, id],
+    (error, results) => {
+      if (error) {
+        console.error('Error updating task:', error);
+        return res.status(500).json({ error: 'Error updating task' });
+      }
+      if (results.affectedRows === 0) {
+        return res.status(404).json({ error: 'Task not found' });
+      }
+      res.json({ message: 'Task updated successfully' });
+    }
+  );
+});
+
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });

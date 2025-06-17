@@ -6,7 +6,7 @@ import Sidebar from './components/Sidebar';
 import SelectedKanbanBoard from './components/SelectedKanbanBoard';
 import NoBoardSelected from './components/NoBoardSelected';
 import LoginPage from './components/LoginPage';
-import SignUp from './components/SignUpPage';
+import SignUp from './components/SIgnUpPage';
 import AboutUs from './components/AboutUs.jsx';
 import Button from './components/Buttons';
 
